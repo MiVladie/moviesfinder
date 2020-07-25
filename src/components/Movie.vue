@@ -7,13 +7,13 @@
                 {{ title }}
             </v-card-title>
         </v-img>
-        <v-card-subtitle>Rating: {{ rating }}/10</v-card-subtitle>
-        <v-card-text class="text--primary"><i>{{ release || 'Unknown date' }}</i></v-card-text>    
+        <v-card-text>{{ overview.substring(0, 90) }}{{ overview.length > 90 ? '...' : '' }}</v-card-text>  
+        <v-card-text class="text--primary"><i>{{ release || 'Unknown date' }}</i></v-card-text>  
         <v-card-actions>
             <v-btn
-                text
                 @click.stop="dialog = true"
-                color="primary">
+                color="primary"
+                text>
                 Read more
             </v-btn>
         </v-card-actions>

@@ -1,6 +1,6 @@
 <template>
     <v-parallax :src="getImageUrl('background.jpg')" height="600" style="display: flex; justify-content: center; align-items: center;">
-        <div style="text-align: center">
+        <div style="text-align: center; max-width: 80vw">
             <h1 style="color: white; line-height: 1.15em;">
                 {{ title }}
             </h1>
@@ -13,6 +13,7 @@
                 v-model="value"
                 :label="label"
                 class="mt-8"
+                style="max-width: 500px; margin: auto"
                 background-color="white"
                 height="55"
                 hide-details
