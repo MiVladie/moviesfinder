@@ -1,3 +1,3 @@
 module.exports = {
-    publicPath: `thebestofvue`
+    publicPath: `/thebestofvue/`
 };
