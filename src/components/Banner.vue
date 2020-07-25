@@ -1,35 +1,34 @@
 <template>
-    <v-parallax :src="getImageUrl('background.jpg')" height="600">
-      <v-layout align-center justify-center>
-        <v-col style="text-align: center; max-width: 600px" >
-          <h1
-            style="color:white">
-            {{ title }}
-          </h1>
-          
-          <p
-            style="color:white">
-            {{ description }}
-          </p>
+    <v-parallax :src="getImageUrl('background.jpg')" height="600" style="display: flex; justify-content: center; align-items: center;">
+        <div style="text-align: center">
+            <h1 style="color: white; line-height: 1.15em;">
+                {{ title }}
+            </h1>
 
-          <v-text-field
-            v-model="value"
-            :label="label"
-            background-color="white"
-            height="55"
-            prepend-inner-icon="mdi-magnify"
-            @keyup.enter="onSubmit"
-            solo rounded />
+            <p class="mt-2" style="color: white">
+                {{ description }}
+            </p>
 
-          <v-btn
-            :disabled="this.value.trim().length === 0"
-            @click="onSubmit"
-            color="primary"
-            dark text rounded>
-            {{ button }}
-          </v-btn>
-        </v-col>
-      </v-layout>
+            <v-text-field
+                v-model="value"
+                :label="label"
+                class="mt-8"
+                background-color="white"
+                height="55"
+                hide-details
+                prepend-inner-icon="mdi-magnify"
+                @keyup.enter="onSubmit"
+                solo rounded />
+
+            <v-btn
+                class="mt-2"
+                :disabled="this.value.trim().length === 0"
+                @click="onSubmit"
+                color="primary"
+                dark text rounded>
+                {{ button }}
+            </v-btn>
+        </div>
     </v-parallax>
 </template>
 
@@ -41,11 +40,11 @@ export default {
     props: ['title', 'description', 'label', 'button'],
     methods: {
         onSubmit() {
-          if(this.value.trim().length === 0)
+            if(this.value.trim().length === 0)
             return;
 
-          this.$emit('onSubmit', this.value.trim());
-          this.value = '';
+            this.$emit('onSubmit', this.value.trim());
+            this.value = '';
         },
         getImageUrl
     },

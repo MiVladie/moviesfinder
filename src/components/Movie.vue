@@ -1,42 +1,48 @@
 <template>
-    <v-layout justify-center>
-        <v-card outlined width="250px" class="ma-3">
-            <v-img class="white--text align-end" gradient="rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75)" height="300px" v-bind:src="poster != null ? this.img_base_url + poster : getImageUrl('no_poster.png')">
-                <v-card-title class="title" style="line-height: 1.25em; text-shadow: 0 0 2px black">{{ title }}</v-card-title>
-            </v-img>
-            <v-card-subtitle>Rating: {{ rating }}/10</v-card-subtitle>
-            <v-card-text class="text--primary">{{ release || 'Unknown date' }}</v-card-text>    
-            <v-card-actions>
-                <v-dialog v-model="dialog" max-width="600">
-                    <template v-slot:activator="{ on }">
-                        <v-btn v-on="on" color="primary">More info</v-btn>
-                    </template>
+    <v-card outlined @click="dialog = true" hover>
+        <v-img class="white--text align-end" height="450" gradient="rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75)" :src="poster != null ? this.img_base_url + poster : getImageUrl('no_poster.png')">
+            <v-card-title
+                class="title"
+                style="line-height: 1.25em; text-shadow: 0 0 2px black">
+                {{ title }}
+            </v-card-title>
+        </v-img>
+        <v-card-subtitle>Rating: {{ rating }}/10</v-card-subtitle>
+        <v-card-text class="text--primary"><i>{{ release || 'Unknown date' }}</i></v-card-text>    
+        <v-card-actions>
+            <v-btn
+                text
+                @click.stop="dialog = true"
+                color="primary">
+                Read more
+            </v-btn>
+        </v-card-actions>
 
-                    <v-card>
-                        <v-img height="300px" v-bind:src="backdrop != null ? this.img_base_url + backdrop : getImageUrl('no_poster.png')" />
-                        <v-card-title class="headline">{{ title }}</v-card-title>
-                        <v-card-text class="text--primary"><i>{{ release || 'Unknown date' }}</i></v-card-text> 
-                        <v-card-text>{{ overview }}</v-card-text>
-                        <v-card-subtitle>Rating: {{ rating }}/10</v-card-subtitle>
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn color="primary" @click="dialog = false">Close</v-btn>
-                        </v-card-actions>
-                    </v-card>
-                </v-dialog>
-            </v-card-actions>
-        </v-card>
-    </v-layout>
+        <Modal
+            v-if="this.dialog"
+            :dialog="this.dialog"
+            @onClose="dialog = false"
+            :backdrop="backdrop || poster ? this.img_base_url + (backdrop || poster) : getImageUrl('no_poster.png')"
+            :title="title"
+            :overview="overview"
+            :release="release"
+            :rating="rating" />
+    </v-card>
 </template>
 
 <script>
+import Modal from './Modal';
+
+import { getImageUrl } from '../shared/utility';
+
 export default {
     name: 'Movie',
+    components: {
+        Modal
+    },
     props: ['title', 'overview', 'rating', 'release', 'poster', 'backdrop'],
     methods: {
-    getImageUrl(img) {
-        return require(`../assets/images/${ img }`)
-        }
+        getImageUrl
     },
     data: () => ({
         dialog: false,

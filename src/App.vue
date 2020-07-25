@@ -40,8 +40,6 @@ export default {
       try {
         const response = await axios.get(url);
 
-        console.log(response.data)
-
         this.search = value;
         this.loading = false;
         this.data = response.data;
