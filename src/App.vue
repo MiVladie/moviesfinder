@@ -9,7 +9,7 @@
         <Results
             successMessage="Your search result for: "
             noDataMessage="No results for: "
-            errorMessage="Oops, an error has occured! Please, try again"
+            errorMessage="Oops, an error has occured! Please, try again."
             errorButton="Try again" />
     </v-app>
 </template>

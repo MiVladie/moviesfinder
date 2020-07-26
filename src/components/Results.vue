@@ -23,12 +23,13 @@
                 <v-flex xs12 sm6 md4 lg3 v-for="movie of movies" :key="movie.id">
                     <Movie
                         class="ma-3"
+                        button="Read more"
                         :title="movie.title"
                         :overview="movie.overview"
                         :rating="movie.vote_average"
-                        :release="movie.release_date"
-                        :poster="movie.poster_path"
-                        :backdrop="movie.backdrop_path" />
+                        :release="movie.release_date || 'Unknown date'"
+                        :poster="movie.poster_path != null ? img_base_url + movie.poster_path : getImageUrl('no_poster.png')"
+                        :backdrop="movie.backdrop_path != null ? img_base_url + movie.backdrop_path : getImageUrl('no_poster.png')" />
                 </v-flex>
             </v-layout>
 
@@ -36,7 +37,7 @@
                 v-if="pages !== 1"
                 class="my-4"
                 color="primary"
-                v-model="this.page"
+                v-model="page"
                 @input="onSelectPageHandler"
                 :length="pages"
                 :total-visible="7" />
@@ -48,6 +49,10 @@
 
 <script>
     import Movie from './Movie';
+    
+    import { img_base_url } from '../shared/keys';
+    import { getImageUrl } from '../shared/utility';
+
     import { mapGetters, mapActions } from 'vuex';
 
     export default {
@@ -57,7 +62,7 @@
         },
         methods: {
             onSelectPageHandler(page) {
-                window.scrollTo(0,0);
+                window.scrollTo(0, 0);
                 
                 this.fetchMovies({ value: this.search, page: page })
             },
@@ -65,9 +70,13 @@
                 this.fetchMovies({ value: this.search, page: this.page })
             },
             ...mapActions(['fetchMovies']),
+            getImageUrl
         },
         computed: mapGetters(['search', 'movies', 'pages', 'page', 'status']),
         props: ['successMessage', 'noDataMessage', 'errorMessage', 'errorButton'],
+        data: () => ({
+            img_base_url
+        })
     }
 </script>
 

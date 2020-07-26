@@ -3,7 +3,7 @@
         <v-card>
             <v-img :src="backdrop" max-height="337.5" />
             <v-card-title class="headline">{{ title }}</v-card-title>
-            <v-card-text class="text--primary"><i>{{ release || 'Unknown date' }}</i></v-card-text> 
+            <v-card-text class="text--primary"><i>{{ release }}</i></v-card-text> 
             <v-card-text>{{ overview }}</v-card-text>
             <v-card-subtitle>Rating: {{ rating }}/10</v-card-subtitle>
             <v-card-actions>
