@@ -37,7 +37,7 @@
                 v-if="pages !== 1"
                 class="my-4"
                 color="primary"
-                v-model="page"
+                :value="page"
                 @input="onSelectPageHandler"
                 :length="pages"
                 :total-visible="7" />
