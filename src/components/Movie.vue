@@ -7,7 +7,7 @@
                 {{ title }}
             </v-card-title>
         </v-img>
-        <v-card-text>{{ overview.substring(0, 90) }}{{ overview.length > 90 ? '...' : '' }}</v-card-text>  
+        <v-card-text style="height: 6em; overflow: hidden">{{ overview.substring(0, 95) }}{{ overview.length > 95 ? '...' : '' }}</v-card-text>  
         <v-card-text class="text--primary"><i>{{ release || 'Unknown date' }}</i></v-card-text>  
         <v-card-actions>
             <v-btn
@@ -33,6 +33,7 @@
 <script>
 import Modal from './Modal';
 
+import { img_base_url } from '../shared/keys';
 import { getImageUrl } from '../shared/utility';
 
 export default {
@@ -46,7 +47,7 @@ export default {
     },
     data: () => ({
         dialog: false,
-        img_base_url: 'http://image.tmdb.org/t/p/original'
+        img_base_url
     })
 }
 </script>

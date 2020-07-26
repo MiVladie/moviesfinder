@@ -1,26 +1,26 @@
 <template>    
-    <v-main class="mt-6" style="width: 80vw; max-width: 1920px; margin: auto;">
-        <div v-if="loading" style="display: flex; justify-content: center;">
-            <v-progress-circular indeterminate color="primary" />
+    <v-main v-if="search != null" class="main mt-6">
+        <div v-if="status === 'pending'" class="center">
+            <v-progress-circular color="primary" indeterminate />
         </div>
 
-        <div v-else-if="error" style="text-align: center">
-            <h2>Oops! An error has occured. Please, try again.</h2>
+        <div v-else-if="status === 'error'" class="message">
+            <h2>{{ errorMessage }}</h2>
 
             <v-btn
+                @click="onTryAgainHandler"
                 class="mt-4"
-                @click="onSearchHandler(data.page)"
                 color="primary"
                 dark rounded>
-                Try again
+                {{ errorButton }}
             </v-btn>
         </div>
 
-        <div v-else-if="data != null && data.results.length !== 0">            
-            <h2>Your search result for: <i>{{ search }}</i></h2>
+        <div v-else-if="movies.length !== 0">
+            <h2>{{ successMessage }}<i>{{ search }}</i></h2>
 
-            <v-layout style="overflow-x: hidden;" justify-center row wrap>
-                <v-flex xs12 sm6 md4 lg3 v-for="movie of data.results" :key="movie.id">
+            <v-layout row wrap>
+                <v-flex xs12 sm6 md4 lg3 v-for="movie of movies" :key="movie.id">
                     <Movie
                         class="ma-3"
                         :title="movie.title"
@@ -33,37 +33,58 @@
             </v-layout>
 
             <v-pagination
-                v-if="data.total_pages !== 1"
+                v-if="pages !== 1"
                 class="my-4"
                 color="primary"
-                v-model="data.page"
-                @input="onSearchHandler"
-                :length="data.total_pages"
+                v-model="this.page"
+                @input="onSelectPageHandler"
+                :length="pages"
                 :total-visible="7" />
         </div>
 
-        <h2 v-else-if="data != null && data.results.length === 0" style="text-align: center;">No results for: <i>{{ search }}</i></h2>
+        <h2 v-else class="message">{{ noDataMessage }}<i>{{ search }}</i></h2>
     </v-main>
 </template>
 
 <script>
-import Movie from './Movie';
+    import Movie from './Movie';
+    import { mapGetters, mapActions } from 'vuex';
 
-export default {
-    name: 'Results',
-    components: {
-        Movie
-    },
-    methods: {
-        onSearchHandler(page) {
-            window.scrollTo(0,0);
-            this.$emit('onPageSelect', page)
-        }
-    },
-    props: ['data', 'search', 'loading', 'error']
-}
+    export default {
+        name: 'Results',
+        components: {
+            Movie
+        },
+        methods: {
+            onSelectPageHandler(page) {
+                window.scrollTo(0,0);
+                
+                this.fetchMovies({ value: this.search, page: page })
+            },
+            onTryAgainHandler() {
+                this.fetchMovies({ value: this.search, page: this.page })
+            },
+            ...mapActions(['fetchMovies']),
+        },
+        computed: mapGetters(['search', 'movies', 'pages', 'page', 'status']),
+        props: ['successMessage', 'noDataMessage', 'errorMessage', 'errorButton'],
+    }
 </script>
 
-<style>
+<style scoped>
+    .main {
+        width: 80vw;
+        max-width: 1920px;
 
+        margin: auto;
+    }
+
+    .main .center {
+        display: flex;
+        justify-content: center;
+    }
+
+    .main .message {
+        text-align: center;
+    }
 </style>
