@@ -23,7 +23,7 @@ const actions = {
         commit('setSearch', value);
 
         try {
-            const response = await axios.get(base_url + `?api_key=${ api_key }&query=${ encodeURI(value) }&page=${ page  }`)
+            const response = await axios.get(base_url + `?api_key=${ api_key }&query=${ encodeURI(value) }&page=${ page }`)
 
             commit('setMovies', response.data.results);
             commit('setPages', response.data.total_pages);
@@ -31,6 +31,7 @@ const actions = {
 
             commit('setStatus', 'success');
         } catch (error) {
+            console.log(error)
             commit('setStatus', 'error');
         }
     }

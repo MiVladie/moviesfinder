@@ -34,7 +34,7 @@
             </v-layout>
 
             <v-pagination
-                v-if="pages !== 1"
+                v-if="pages > 1"
                 class="my-4"
                 color="primary"
                 :value="page"
