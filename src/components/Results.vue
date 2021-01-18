@@ -28,8 +28,8 @@
                         :overview="movie.overview"
                         :rating="movie.vote_average"
                         :release="movie.release_date || 'Unknown date'"
-                        :poster="movie.poster_path != null ? img_base_url + movie.poster_path : getImageUrl('no_poster.png')"
-                        :backdrop="movie.backdrop_path != null ? img_base_url + movie.backdrop_path : getImageUrl('no_poster.png')" />
+                        :poster="movie.poster_path != null ? IMG_BASE_URL + movie.poster_path : getImageUrl('no_poster.png')"
+                        :backdrop="movie.backdrop_path != null ? IMG_BASE_URL + movie.backdrop_path : getImageUrl('no_poster.png')" />
                 </v-flex>
             </v-layout>
 
@@ -50,11 +50,9 @@
 <script>
     import Movie from './Movie';
     
-    import { img_base_url } from '../shared/keys';
+    import { IMG_BASE_URL } from '../shared/constants';
     import { getImageUrl } from '../shared/utility';
-
     import { mapGetters, mapActions } from 'vuex';
-
     export default {
         name: 'Results',
         components: {
@@ -75,7 +73,7 @@
         computed: mapGetters(['search', 'movies', 'pages', 'page', 'status']),
         props: ['successMessage', 'noDataMessage', 'errorMessage', 'errorButton'],
         data: () => ({
-            img_base_url
+            IMG_BASE_URL
         })
     }
 </script>
@@ -84,15 +82,12 @@
     .main {
         width: 80vw;
         max-width: 1920px;
-
         margin: auto;
     }
-
     .main .center {
         display: flex;
         justify-content: center;
     }
-
     .main .message {
         text-align: center;
     }

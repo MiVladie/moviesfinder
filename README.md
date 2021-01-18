@@ -9,8 +9,9 @@ https://mivladie.github.io/moviesfinder/
 
 * [:memo: Table of Contents](#memo-table-of-contents)
 * [:rocket: Quick Start](#rocket-quick-start)
-	* [Step 1: Installing the dependencies](#step-1-installing-the-dependencies)
-	* [Step 2: Launching the server](#step-2-launching-the-server)
+	* [Step 1: Installing the dependencies](#step-1-installing-the-dependencies)	
+	* [Step 2: Setting up configurations](#step-2-setting-up-configurations)
+	* [Step 3: Launching the server](#step-3-launching-the-server)
 * [:desktop_computer: Installation](#desktop_computer-installation)
 	* [NodeJS](#nodejs)
 * [:keyboard: Available Scripts](#keyboard-available-scripts)
@@ -31,7 +32,15 @@ Quick start guide to set the server up and running.
 
 Installs all of the necessary dependencies.
 
-## Step 2: Launching the server
+## Step 2: Setting up configurations
+
+### TMDB
+
+* Open `/src/shared/constants.js` file;
+* Assign the TMDB API key to the `TMDB_API_KEY` constant;
+* Save the file.
+
+## Step 3: Launching the server
 
 ### Run `npm start`
 
