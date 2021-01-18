@@ -42,7 +42,7 @@ Installs all of the necessary dependencies.
 
 ## Step 3: Launching the server
 
-### Run `npm start`
+### Run `npm run serve`
 
 Starts the server in the development mode.
 
